@@ -1,0 +1,1916 @@
+--
+
+/* <sc-view> AdventureWorksDW.vAssocSeqLineItems </sc-view> */
+
+CREATE VIEW vAssocSeqLineItems
+AS
+SELECT     OrderNumber, LineNumber, Model
+FROM         vDMPrep
+WHERE     (FiscalYear = '2013')
+;
+
+--
+
+/* <sc-view> AdventureWorksDW.vAssocSeqOrders </sc-view> */
+
+CREATE VIEW vAssocSeqOrders
+AS
+SELECT DISTINCT OrderNumber, CustomerKey, Region, IncomeGroup
+FROM         vDMPrep
+WHERE     (FiscalYear = '2013')
+;
+
+--
+
+/* <sc-view> AdventureWorksDW.vDMPrep </sc-view> */
+
+CREATE VIEW vDMPrep
+AS
+    SELECT
+        pc.EnglishProductCategoryName
+        ,COALESCE(p.ModelName, p.EnglishProductName) AS Model
+        ,c.CustomerKey
+        ,s.SalesTerritoryGroup AS Region
+        ,CAST(MONTHS_BETWEEN(CURRENT_DATE,c.BirthDate)/12 AS INT) AS Age
+        ,CASE
+            WHEN c.YearlyIncome < 40000 THEN 'Low'
+            WHEN c.YearlyIncome > 60000 THEN 'High'
+            ELSE 'Moderate'
+        END AS IncomeGroup
+        ,d.CalendarYear
+        ,d.FiscalYear
+        ,d.MonthNumberOfYear AS "Month"
+        ,f.SalesOrderNumber AS OrderNumber
+        ,f.SalesOrderLineNumber AS LineNumber
+        ,f.OrderQuantity AS Quantity
+        ,f.ExtendedAmount AS Amount 
+    FROM
+        FactInternetSales f
+    INNER JOIN DimDate d
+        ON f.OrderDateKey = d.DateKey
+    INNER JOIN DimProduct p
+        ON f.ProductKey = p.ProductKey
+    INNER JOIN DimProductSubcategory psc
+        ON p.ProductSubcategoryKey = psc.ProductSubcategoryKey
+    INNER JOIN DimProductCategory pc
+        ON psc.ProductCategoryKey = pc.ProductCategoryKey
+    INNER JOIN DimCustomer c
+        ON f.CustomerKey = c.CustomerKey
+    INNER JOIN DimGeography g
+        ON c.GeographyKey = g.GeographyKey
+    INNER JOIN DimSalesTerritory s
+        ON g.SalesTerritoryKey = s.SalesTerritoryKey
+;
+
+--
+
+/* <sc-view> AdventureWorksDW.vFiftyCustomers </sc-view> */
+
+CREATE VIEW AdventureWorksDW.vFiftyCustomers AS 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11014 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11017 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11027 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11028 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11030 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11031 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11032 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11034 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11035 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11045 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11046 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11048 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11049 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11050 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11051 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11052 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11053 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11063 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11064 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11065 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11066 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11068 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11069 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11070 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11071 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11081 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11083 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11084 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11085 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11086 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11087 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11088 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11089 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11099 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11100 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11101 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11102 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11103 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11067 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11033 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11016 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11012 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11010 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11009 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11082 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11047 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11029 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11015 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11013 
+UNION 
+SELECT 
+  CustomerKey, 
+  GeographyKey, 
+  CustomerAlternateKey, 
+  "Title", 
+  FirstName, 
+  MiddleName, 
+  LastName, 
+  NameStyle, 
+  BirthDate, 
+  MaritalStatus, 
+  Suffix, 
+  Gender, 
+  EmailAddress, 
+  YearlyIncome, 
+  TotalChildren, 
+  NumberChildrenAtHome, 
+  EnglishEducation, 
+  SpanishEducation, 
+  FrenchEducation, 
+  EnglishOccupation, 
+  SpanishOccupation, 
+  FrenchOccupation, 
+  HouseOwnerFlag, 
+  NumberCarsOwned, 
+  AddressLine1, 
+  AddressLine2, 
+  Phone, 
+  DateFirstPurchase, 
+  CommuteDistance 
+FROM 
+  AdventureWorksDW.DimCustomer 
+WHERE 
+  CustomerKey = 11011;
+
+--
+
+/* <sc-view> AdventureWorksDW.vTargetMail </sc-view> */
+
+CREATE VIEW vTargetMail
+AS
+    SELECT
+        c.CustomerKey,
+        c.GeographyKey,
+        c.CustomerAlternateKey,
+        c."Title",
+        c.FirstName,
+        c.MiddleName,
+        c.LastName,
+        c.NameStyle,
+        c.BirthDate,
+        c.MaritalStatus,
+        c.Suffix,
+        c.Gender,
+        c.EmailAddress,
+        c.YearlyIncome,
+        c.TotalChildren,
+        c.NumberChildrenAtHome,
+        c.EnglishEducation,
+        c.SpanishEducation,
+        c.FrenchEducation,
+        c.EnglishOccupation,
+        c.SpanishOccupation,
+        c.FrenchOccupation,
+        c.HouseOwnerFlag,
+        c.NumberCarsOwned,
+        c.AddressLine1,
+        c.AddressLine2,
+        c.Phone,
+        c.DateFirstPurchase,
+        c.CommuteDistance,
+        x.Region,
+        x.Age,
+        CASE x.Bikes
+            WHEN 0 THEN 0
+            ELSE 1
+        END AS BikeBuyer
+    FROM
+        DimCustomer c INNER JOIN (
+            SELECT
+                CustomerKey
+                ,Region
+                ,Age
+                ,SUM(
+                    CASE EnglishProductCategoryName
+                        WHEN 'Bikes' THEN 1
+                        ELSE 0
+                    END) AS Bikes
+            FROM
+                vDMPrep
+            GROUP BY
+                CustomerKey
+                ,Region
+                ,Age
+            ) AS x
+        ON c.CustomerKey = x.CustomerKey
+;
+
+--
+
+/* <sc-view> AdventureWorksDW.vTimeSeries </sc-view> */
+
+CREATE VIEW vTimeSeries
+AS
+    SELECT
+        CASE Model
+            WHEN 'Mountain-100' THEN 'M200'
+            WHEN 'Road-150' THEN 'R250'
+            WHEN 'Road-650' THEN 'R750'
+            WHEN 'Touring-1000' THEN 'T1000'
+            ELSE SUBSTRING(Model FROM 1 FOR 1) || SUBSTRING(Model FROM CHAR_LENGTH(Model)- 2)
+        END || ' ' || Region AS ModelRegion
+        ,CalendarYear *100 + "Month" AS  TimeIndex
+        ,SUM(Quantity) AS Quantity
+        ,SUM(Amount) AS Amount
+        ,CalendarYear
+        ,"Month"
+        ,CAST((CalendarYear-1900) *10000 + "Month" *100 + 25 AS DATE)
+        AS ReportingDate
+    FROM
+        vDMPrep
+    WHERE
+        Model IN ('Mountain-100', 'Mountain-200', 'Road-150', 'Road-250',
+            'Road-650', 'Road-750', 'Touring-1000')
+    GROUP BY
+        ModelRegion
+        ,TimeIndex
+        ,CalendarYear
+        ,"Month"
+        ,ReportingDate
+;
+

@@ -1,0 +1,93 @@
+BTEQ 16.20.00.08 (32-bit) Wed Nov  3 12:23:07 2021 PID: 22428
+ 
++---------+---------+---------+---------+---------+---------+---------+----
+**** Modified by:
+**** Modified Date:
+**** Description: 
+
+.LOGON 127.0.0.1/dbc,
+
+ *** Logon successfully completed.
+ *** Teradata Database Release is 16.20.32.23                   
+ *** Teradata Database Version is 16.20.32.23                     
+ *** Transaction Semantics are BTET.
+ *** Session Character Set Name is 'ASCII'.
+ 
+ *** Total elapsed time was 1 second.
+ 
++---------+---------+---------+---------+---------+---------+---------+----
+
+**** CREATE INVALID VIEWS LIST FILE ****
+.SET ERROROUT STDOUT
+ *** Error messages now directed to STDOUT.
++---------+---------+---------+---------+---------+---------+---------+----
+.EXPORT FILE = ../temp/Invalid_Object_Test.sql
+ *** Warning: No data format given. Assuming REPORT carries over.
+ *** To reset export, type .EXPORT RESET
++---------+---------+---------+---------+---------+---------+---------+----
+.SET WIDTH 65531
++---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+-
+SELECT 'SELECT * FROM ' || TRIM(T1.DATABASENAME) || '.' || TRIM(T1.TABLENAME) || ' WHERE 1 = 2;' "--" FROM DBC.TABLESV T1 WHERE T1.TABLEKIND IN ('V') AND (UPPER(T1.DATABASENAME) LIKE ANY ('AdventureWorksDW')) AND (UPPER(T1.DATABASENAME) NOT IN ('SYS_CALENDAR','ALL','CONSOLE','CRASHDUMPS','DBC','DBCMANAGER','DBCMNGR','DEFAULT','EXTERNAL_AP','EXTUSER','LOCKLOGSHREDDER','PDCRADM','PDCRDATA','PDCRINFO','PUBLIC','SQLJ','SYSADMIN','SYSBAR','SYSJDBC','SYSLIB','SYSSPATIAL','SYSTEMFE','SYSUDTLIB','SYSUIF','TD_SERVER_DB','TD_SYSFNLIB','TD_SYSFNLIB','TD_SYSGPL','TD_SYSXML','TDMAPS', 'TDPUSER','TDQCD','TDSTATS','TDWM','VIEWPOINT','PDCRSTG')) AND (UPPER(T1.TABLENAME) LIKE ANY ('%'));
+
+ *** Query completed. 6 rows found. One column returned. 
+ *** Total elapsed time was 1 second.
+
+
++---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+-
+.EXPORT RESET
+ *** Output returned to console.
++---------+---------+---------+---------+---------+---------+---------+----
+
+.RUN FILE = ../temp/Invalid_Object_Test.sql
++---------+---------+---------+---------+---------+---------+---------+----
+--
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT * FROM AdventureWorksDW.vTimeSeries WHERE 1 = 2;
+
+ *** Query completed. No rows found. 
+ *** Total elapsed time was 1 second.
+
+
++---------+---------+---------+---------+---------+---------+---------+----
+SELECT * FROM AdventureWorksDW.vDMPrep WHERE 1 = 2;
+
+ *** Query completed. No rows found. 
+ *** Total elapsed time was 1 second.
+
+
++---------+---------+---------+---------+---------+---------+---------+----
+SELECT * FROM AdventureWorksDW.vTargetMail WHERE 1 = 2;
+
+ *** Query completed. No rows found. 
+ *** Total elapsed time was 1 second.
+
+
++---------+---------+---------+---------+---------+---------+---------+----
+SELECT * FROM AdventureWorksDW.vAssocSeqOrders WHERE 1 = 2;
+
+ *** Query completed. No rows found. 
+ *** Total elapsed time was 1 second.
+
+
++---------+---------+---------+---------+---------+---------+---------+----
+SELECT * FROM AdventureWorksDW.vFiftyCustomers WHERE 1 = 2;
+
+ *** Query completed. No rows found. 
+ *** Total elapsed time was 1 second.
+
+
++---------+---------+---------+---------+---------+---------+---------+----
+SELECT * FROM AdventureWorksDW.vAssocSeqLineItems WHERE 1 = 2;
+
+ *** Query completed. No rows found. 
+ *** Total elapsed time was 1 second.
+
+
++---------+---------+---------+---------+---------+---------+---------+----
+ *** Encountered EOF on RUN file. Returning to stdin.
++---------+---------+---------+---------+---------+---------+---------+----
+
+.quit 0;
+ *** You are now logged off from the DBC.
+ *** Exiting BTEQ...
+ *** RC (return code) = 0 
